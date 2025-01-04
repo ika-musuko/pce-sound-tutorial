@@ -39,14 +39,9 @@ playSquareWave:
 	stz	$808		; LFO frequency = 0
 	stz	$809		; LFO=OFF, LFO Ctrl=0
 
-	; set volume of L and R speakers (#$LR)
+	; set L and R global volume (#$LR)
 	lda	#$ee
 	sta	$801
-
-	; clear wavetable index
-	lda	#$40
-	sta	$804
-	stz	$804
 
 	; write wavetable (square wave)
 	;     0              15              31
@@ -73,7 +68,11 @@ playSquareWave_writeValley:
 	bne	playSquareWave_writeValley
 
 	; set pitch frequency
-	; freq_value = 111860.78125 / real_freq
+	; register_data = 111860.78125 / output_freq
+	;
+	; can also refer to the 3. SCALE TABLE section
+	; in the official hudson PSG manual
+	; https://github.com/langel/pce-dev-kit/blob/main/documents/official/HuC6280%20-%20CMOS%20Programmable%20Sound%20Generator%20Manual.pdf
 	;
 	; let's get a low A = 220Hz
 	; 111860.78125 / 220Hz = $1fc
