@@ -69,7 +69,7 @@ playCustomWave:
 	; write wavetable using our custom wave at d_wave00
 	clx			; use x as wavetable data pointer index
 playCustomWave_write:
-	lda	d_wave04, x	; get data at d_wave00 + x and store in accumulator
+	lda	d_wave00, x	; get data at d_wave00 + x and store in accumulator
 	sta	$806		; write accumulator into PSG wave data
 	inx
 	cpx	#32
